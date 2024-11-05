@@ -40,5 +40,15 @@ x
 The number of students are `r x`.
 
 ANSWER-4
+```{r}
+students <- table |> 
+  distinct(id, group)
+head(students)
+```
+ANSWER-5
+```{r}
+ggplot(students, aes(x = group)) +
+  geom_bar() + xlab("Group") + ylab("Number of Students") + ggtitle("Number of Students per Group")
+```
 
 

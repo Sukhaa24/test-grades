@@ -18,39 +18,49 @@ theme_set(theme('bw'))
 #| warning: false
 #| eval: false
 ```
+
 ANSWER-1
+
 ```{r}
 table=read.csv("grades.csv")
 ```
 
-ANSWER-2    
+ANSWER-2
+
 ```{r}
 exists("grade")
 y <- nrow(grade) # SOME ISSUE i.e when I render it isnt recognising grade object, otherwise working.
 y
 ```
-The data set contains `r y` grades
-ANSWER-3
+
+The data set contains `r y` grades ANSWER-3
+
 ```{r}
 x <- table |>
 distinct(id) |>
 nrow() 
 x
 ```
+
 The number of students are `r x`.
 
 ANSWER-4
+
 ```{r}
 students <- table |> 
   distinct(id, group)
 head(students)
 ```
+
 ANSWER-5
+
 ```{r}
 ggplot(students, aes(x = group)) +
   geom_bar() + xlab("Group") + ylab("Number of Students") + ggtitle("Number of Students per Group")
 ```
+
 ANSWER 6
+
 ```{r}
 avg_victorian <- table |> 
   filter(course == "Victorian Literature and Social Commentary") |>
@@ -60,7 +70,9 @@ avg_victorian
 ggplot(avg_victorian, aes(x = group, y = avg_grade)) +
   geom_col()
 ```
+
 ANSWER-7
+
 ```{r}
 # Plot distribution by semester with density plot
 ggplot(table, aes(x = grade, fill = 'semester')) +
@@ -69,5 +81,31 @@ ggplot(table, aes(x = grade, fill = 'semester')) +
   ggtitle("Distribution of Grades by Semester") +
   scale_fill_manual(values = c("lightblue", "lightcoral"))
 ```
+
+ANSWER - 8
+
+```{r}
+grades_per_student <- table |> 
+  group_by(id, group) |> 
+  summarise(num_grades = n(), .groups = "drop")
+head(grades_per_student)
+
+
+# summary function
+grade_stats <- grades_per_student |> 
+  summarise(
+    min_grades = min(num_grades),
+    max_grades = max(num_grades),
+    avg_grades = mean(num_grades),
+    median_grades = median(num_grades))
+grade_stats
+```
+|                |          |
+|----------------|----------|
+| Summary        | Values   |
+| Minimum Grades | 54       |
+| Maximum Grades | 61       |
+| Average Grades | 58.97962 |
+| Median Grades  | 59       |
 
 

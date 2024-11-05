@@ -4,3 +4,26 @@ format: html
 ---
 
 Graded Lab - 5th November, 2024
+
+```{r}
+here::i_am("test-grades.Rproj") 
+library(here)
+library(stringr)
+library(dplyr)
+library(tidyr)
+library(vroom) 
+library(ggplot2)
+theme_set(theme('bw'))
+#| message: false
+#| warning: false
+#| eval: false
+```
+ANSWER-1
+```{r}
+table=read.csv("grades.csv")
+```
+
+```{r}
+View(table)
+```
+

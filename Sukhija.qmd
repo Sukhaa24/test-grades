@@ -24,17 +24,19 @@ ANSWER-1
 ```{r}
 table=read.csv("grades.csv")
 ```
-
-ANSWER-2
-
 ```{r}
-exists("grade")
-y <- nrow(grade) # SOME ISSUE i.e when I render it isnt recognising grade object, otherwise working.
-y
+# ANSWER-2 # SOME ISSUE i.e when I render it isnt recognising grade object, W/O answer 2 everything working.
+
+# exists("grade")
+# y <- nrow(grade) 
+# y
+# The data set contains `r y` grades 
 ```
 
-The data set contains `r y` grades ANSWER-3
 
+
+
+ANSWER-3
 ```{r}
 x <- table |>
 distinct(id) |>
@@ -114,7 +116,30 @@ etiquette_grades <- table |>
   group_by(id, group) |> 
   summarise(num_grades = n(), .groups = "drop")
 head(etiquette_grades) # extract
+```
+ANSWER-10
+```{r}
+grade_distribution <- etiquette_grades |> 
+  count(num_grades, name = "num_students")
+head(grade_distribution)
+ggplot(grade_distribution, aes(x = num_grades, y = num_students)) +
+  geom_col(fill = "skyblue") +
+  xlab("Number of Grades in Etiquette and Social Graces") +
+  ylab("Number of Students") +
+  ggtitle("Distribution of Grades per Student in Etiquette and Social Graces")
+```
+ANSWER-11
+```{r}
+# Box plot to compare number of grades by group
+etiquette_grades$group <- as.factor(etiquette_grades$group)
+
+ggplot(etiquette_grades, aes(x = group, y = num_grades)) +
+  geom_boxplot(fill = "lightblue") +
+  xlab("Group") +
+  ylab("Number of Grades in Etiquette and Social Graces") +
+  ggtitle("Number of Grades per Student by Group in Etiquette and Social Graces")
 
 ```
+
 
 

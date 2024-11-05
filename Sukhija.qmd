@@ -23,7 +23,21 @@ ANSWER-1
 table=read.csv("grades.csv")
 ```
 
-```{r}
-View(table)
-```
+ANSWER-2    
 
+```{r}
+exists("grade")
+y <- nrow(grade)
+y
+```
+## The data set contains `r y` grades
+
+ANSWER-3
+
+```{r}
+x <- table |>
+distinct(id) |>
+nrow() 
+x
+```
+The number of students are `r x`.

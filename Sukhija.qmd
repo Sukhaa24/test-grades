@@ -24,16 +24,13 @@ table=read.csv("grades.csv")
 ```
 
 ANSWER-2    
-
 ```{r}
 exists("grade")
-y <- nrow(grade)
+y <- nrow(grade) # SOME ISSUE i.e when I render it isnt recognising grade object, otherwise working.
 y
 ```
-## The data set contains `r y` grades
-
+The data set contains `r y` grades
 ANSWER-3
-
 ```{r}
 x <- table |>
 distinct(id) |>
@@ -41,3 +38,7 @@ nrow()
 x
 ```
 The number of students are `r x`.
+
+ANSWER-4
+
+

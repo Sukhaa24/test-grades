@@ -107,5 +107,14 @@ grade_stats
 | Maximum Grades | 61       |
 | Average Grades | 58.97962 |
 | Median Grades  | 59       |
+ANSWER-9
+```{r}
+etiquette_grades <- table |> 
+  filter(course == "Etiquette and Social Graces") |> 
+  group_by(id, group) |> 
+  summarise(num_grades = n(), .groups = "drop")
+head(etiquette_grades) # extract
+
+```
 
 

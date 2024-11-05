@@ -140,6 +140,77 @@ ggplot(etiquette_grades, aes(x = group, y = num_grades)) +
   ggtitle("Number of Grades per Student by Group in Etiquette and Social Graces")
 
 ```
+ANSWER-12
+```{r}
+avg_grades <- table |> 
+  group_by(id, group, course) |> 
+  summarise(avg_grade = mean(grade, na.rm = TRUE), .groups = "drop")
+
+# Pivot the data to have one column per course
+wide_grades <- avg_grades |> 
+  pivot_wider(names_from = course, values_from = avg_grade)
+
+head(wide_grades)
+```
+ANSWER-13
+```{r}
+average_grades <- table |> 
+  filter(course %in% c("Cryptography and Codebreaking", "Victorian Literature and Social Commentary")) |> 
+  group_by(id, course) |> 
+  summarise(avg_grade = mean(grade, na.rm = TRUE), .groups = "drop")
+
+# Pivot to create separate columns for each course's average grade
+grades_wide <- average_grades |> 
+  pivot_wider(names_from = course, values_from = avg_grade, 
+              names_prefix = "avg_")
+
+grades_wide
+
+# Scatter plot of average grades in Cryptography vs. Victorian Literature
+# ggplot (grades_wide, aes(x = avg_Victorian Literature and Social Commentary, y = avg_Cryptography and Codebreaking)) +
+# geom_point(color = "blue", size = 3, alpha = 0.7) +
+  #geom_smooth(method = "lm", color = "red", se = FALSE) 
+
+```
+
+ANSWER-14
+```{r} 
+avg_grades <- table |> 
+  filter(course %in% c("Victorian Literature and Social Commentary", "Airship Piloting and Navigation")) |> 
+  group_by(id, group, course) |> 
+  summarise(avg_grade = mean(grade, na.rm = TRUE), .groups = "drop")
+# Compute correlation within each group
+grades_wide
 
 
 
+
+```
+ANSWER-15
+```{r}
+library(dplyr)
+library(tidyr)
+
+# Filter and calculate average grades for each subject per student
+avg_grades <- table |> 
+  filter(course %in% c("Victorian Literature and Social Commentary", "Airship Piloting and Navigation")) |> 
+  group_by(id, group, course) |> 
+  summarise(avg_grade = mean(grade, na.rm = TRUE), .groups = "drop")
+
+# Pivot to wide format to create separate columns for each course's average grade
+grades_wide <- avg_grades |> 
+  pivot_wider(names_from = course, values_from = avg_grade, 
+              names_prefix = "avg_")
+
+# Compute correlation within each group
+# correlations <- grades_wide |> 
+  #group_by(group) |> 
+  #summarise(correlation = cor(avg_Victorian_Literature_and_Social_Commentary, avg_Airship_Piloting_and_Navigation, use = "complete.obs"))
+
+# Identify the group with the highest absolute correlation
+# highest_corr_group <- correlations |> 
+  #filter(abs(correlation) == max(abs(correlation))) |> 
+  # pull(group)
+
+```
+ANSWER-16

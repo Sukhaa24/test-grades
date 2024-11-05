@@ -50,5 +50,24 @@ ANSWER-5
 ggplot(students, aes(x = group)) +
   geom_bar() + xlab("Group") + ylab("Number of Students") + ggtitle("Number of Students per Group")
 ```
+ANSWER 6
+```{r}
+avg_victorian <- table |> 
+  filter(course == "Victorian Literature and Social Commentary") |>
+group_by(group)|> 
+  summarise(avg_grade = mean(grade, na.rm = TRUE))
+avg_victorian
+ggplot(avg_victorian, aes(x = group, y = avg_grade)) +
+  geom_col()
+```
+ANSWER-7
+```{r}
+# Plot distribution by semester with density plot
+ggplot(table, aes(x = grade, fill = 'semester')) +
+  geom_density(alpha = 0.4)  + xlab("Grade") +
+  ylab("Density") +
+  ggtitle("Distribution of Grades by Semester") +
+  scale_fill_manual(values = c("lightblue", "lightcoral"))
+```
 
 
